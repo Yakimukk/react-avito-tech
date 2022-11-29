@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 
 export const Header = () => (
   <header>
-    <nav className="navbar navbar-dark navbar-expand-lg bg-primary">
+    <nav className="navbar navbar-dark navbar-expand-lg">
       <div className="navbar-brand">
         Hacker News
       </div>
