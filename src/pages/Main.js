@@ -8,12 +8,16 @@ export const Main = () => {
   useEffect(() => {
     getNews();
   }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => getNews() , 60000);
+    return () => clearInterval(interval);
+  }, [])
   
   const onClickUpdate = () => {
     getNews();
   } 
 
-  //setInterval(() => getNews(), 60000);
 
   function getNews() {
     fetch('https://dummyjson.com/posts?_limit=100')
@@ -23,7 +27,8 @@ export const Main = () => {
 
   return (
     <Fragment>
-      <button className="btn btn-secondary" onClick={onClickUpdate}>Update</button>
+      <div className="container"><button className="mb-3 btn btn-secondary" onClick={onClickUpdate}>Update</button></div>
+      
       <News listNews={listNews}/>
     </Fragment>
   )
