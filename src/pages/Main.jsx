@@ -28,7 +28,6 @@ export const Main = () => {
   return (
     <Fragment>
       <div className="container"><button className="mb-3 btn btn-secondary" onClick={onClickUpdate}>Update</button></div>
-      
       <News listNews={listNews}/>
     </Fragment>
   )
