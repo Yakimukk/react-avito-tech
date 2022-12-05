@@ -1,26 +1,22 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { NewsPost } from "../components/NewsPost";
+import { getNews, getComments } from "../redux/actions";
 
-
-export const NewsPage = () => {
+export const NewsPage = (props) => {
   const {id} = useParams();
-  const [news, setNews] = React.useState(null);
-  const [comments, setComments] = React.useState(null);
+  const [news, setNews] = useState({})
+  const [comments, setComments] = useState([]);
+
+  console.log(comments)
 
   useEffect(() => {
-    fetch(`https://dummyjson.com/posts/${id}`)
-      .then(responce => responce.json())
-      .then((res) => setNews(res) )
-  }, [id]);
+    getNews(id, setNews)
+  }, []);
 
   useEffect(() => {
-    fetch(`https://dummyjson.com/posts/${id}/comments`)
-      .then(res => res.json())
-      .then((res) => setComments(res.comments))
+    getComments(id, setComments)
   }, []);
   
-
   return (
     <Fragment>
       {news && (

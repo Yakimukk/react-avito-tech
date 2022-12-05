@@ -1,34 +1,35 @@
 import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { News } from "../components/News";
+import { getListNews } from "../redux/actions";
 
 export const Main = () => {
 
-  const [listNews, setListNews] = React.useState([]);
+  const dispatch = useDispatch();
+  const listNews = useSelector(state => state.listNews.newsList)
+ 
+  console.log(listNews)
 
   useEffect(() => {
-    getNews();
+    dispatch(getListNews());
+    
   }, [])
 
   useEffect(() => {
-    const interval = setInterval(() => getNews() , 60000);
+    const interval = setInterval(() => dispatch(getListNews()), 60000);
     return () => clearInterval(interval);
   }, [])
   
   const onClickUpdate = () => {
-    getNews();
+    dispatch(getListNews());
   } 
-
-
-  function getNews() {
-    fetch('https://dummyjson.com/posts?_limit=100')
-    .then(responce => responce.json())
-    .then((res) => setListNews(res.posts))
-  }
 
   return (
     <Fragment>
       <div className="container"><button className="mb-3 btn btn-secondary" onClick={onClickUpdate}>Update</button></div>
-      <News listNews={listNews}/>
+      {listNews.map(news => 
+        <News news={news}/>
+      )}
     </Fragment>
   )
 }
