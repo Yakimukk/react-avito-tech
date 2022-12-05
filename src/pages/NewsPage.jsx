@@ -11,9 +11,6 @@ export const NewsPage = (props) => {
 
   useEffect(() => {
     getNews(id, setNews)
-  }, []);
-
-  useEffect(() => {
     getComments(id, setComments)
   }, []);
   
